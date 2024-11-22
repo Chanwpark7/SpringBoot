@@ -4,6 +4,7 @@ import com.fullstack.springboot.dto.GuestBookDTO;
 import com.fullstack.springboot.dto.PageRequestDTO;
 import com.fullstack.springboot.dto.PageResultDTO;
 import com.fullstack.springboot.entity.GuestBook;
+import com.querydsl.core.BooleanBuilder;
 
 /*
  * 얘는 컨트롤러에서 오는 요청에 대한 수행(Service) 를 진행하도록 목적에 맞는 명세를 선언함.
@@ -16,11 +17,23 @@ import com.fullstack.springboot.entity.GuestBook;
 
 public interface GuestBookService {
 
+	//검색 요청을 처리하는 명세 선언
+	//BooleanBuilder getSearch(PageRequestDTO pageRequestDTO);
+	
 	//글쓰기 요청이 오면 처리하는 명세 선언.
 	public Long register(GuestBookDTO bookDTO);
 	
-	//
+	//글 목록 가져오기 명세 선언
 	public PageResultDTO<GuestBookDTO, GuestBook> getList(PageRequestDTO pageRequestDTO);
+	
+	//상세글의 내용을 가져오는 메소드 선언
+	public GuestBookDTO read(Long gno);
+	
+	//글 수정 메소드 선언
+	public void modify(GuestBookDTO guestBookDTO);
+	
+	//글 삭제 메소드 선언
+	public void delete(GuestBookDTO guestBookDTO);
 	
 	//default 메소드로 매퍼 정의. 아래는 dto --> entity
 	default GuestBook dtoToEntity(GuestBookDTO dto) {

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<h1 class = "mt-4">방명록 Read Page</h1>
+		<form action = "/guestbook/modify">
+			<input type = "hidden" name = "page" th:value="${pageRequestDTO.page}">
+			<input type = "hidden" name = "gno" th:value="${dto.gno}">
+			<div class="form-group">
+				<label>Gno</label>
+				<input type="text" class="form-control" name = "gno" th:value=${dto.gno} readonly="readonly">
+			</div>
+			
+			<div class="form-group">
+				<label>Title</label>
+				<input type="text" class="form-control" name = "title" th:value=${dto.title}>
+			</div>
+			
+			<div class="form-group">
+				<label>Content</label>
+				<textarea rows="5" cols="" class="form-control" name="content">[[${dto.content}]]</textarea>
+			</div>
+			
+			<div class="form-group">
+				<label>Writer</label>
+				<input type="text" class="form-control" name = "writer" th:value=${dto.writer} readonly="readonly">
+			</div>
+			
+			<div class="form-group">
+				<label>RegDate</label>
+				<input type="text" class="form-control" th:value="${#temporals.format(dto.regdate, 'yyyy-MM-dd a h:mm')}" readonly="readonly">
+			</div>
+			
+			<div class="form-group">
+				<label>modDate</label>
+				<input type="text" class="form-control" th:value="${#temporals.format(dto.moddate, 'yyyy-MM-dd a h:mm')}" readonly="readonly">
+			</div>
+		</form>
+		
+		<span>
+			<button type="button" class = "btn btn-primary modifyBtn">SUBMIT</button>
+		</span>
+		<span>
+			<button type="button" class = "btn btn-primary listBtn">LIST</button>
+		</span>
+		<span>
+			<button type="button" class = "btn btn-primary deleteBtn">DELETE</button>
+		</span>
+		
+		<script th:inline="javascript">
+		      let theForm = $('form');
+		      
+		      $('.modifyBtn').click(function(){
+		         if(!confirm('수정할까요?')){
+		            return;
+		         }
+		         theForm.attr("action","/guestbook/modify")
+		               .attr("method","post")
+		               .submit();
+		      });
+		      
+		      $('.listBtn').click(function(){
+		    	  	var pageInfo = $('input[name=page]')
+		    	  	theForm.empty();
+		    	  	theForm.append(pageInfo);
+			         theForm.attr("action","/guestbook/list")
+			               .attr("method","get")
+			               .submit();
+			      });
+			
+		      $('.deleteBtn').click(function(){
+			         theForm.attr("action","/guestbook/delete")
+			               .attr("method","get")
+			               .submit();
+			      });
+      </script>
+	</th:block>
+</th:block>
+</html>

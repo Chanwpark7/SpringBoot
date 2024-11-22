@@ -111,22 +111,43 @@ class GuestBookApplicationTests {
 //		System.out.println(guestBookService.register(dto));
 //	}
 	
-	void testList() {
-		PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
-		
+//	void testList() {
+//		PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(31).size(10).build();
+//		
+//		PageResultDTO<GuestBookDTO, GuestBook> pageResultDTO =
+//				guestBookService.getList(pageRequestDTO);
+//		
+//		//페이징 처리 테스트
+//		System.out.println("이전 : " + pageResultDTO.isPrev());
+//		System.out.println("다음 : " + pageResultDTO.isNext());
+//		System.out.println("총 페이지 수 : " + pageResultDTO.getTotalPage());
+//		System.out.println("----------------------------");
+//		
+//		for(GuestBookDTO dto : pageResultDTO.getDtoList()) {
+//			System.out.println(dto);
+//		}
+//		System.out.println("페이징 처리 결과 확인============");
+//		pageResultDTO.getPageList().forEach(t -> System.out.println(t));
+//	}
+	
+//	void testRead() {
+//		GuestBook guestBook = guestBookRepository.findById(300L).get();
+//		
+//		System.out.println(guestBook);
+//	}
+	
+	void testsearch() {
+		PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+				.page(1)
+				.size(10)
+				.type("tcw")
+				.keyword("234")
+				.build();
 		PageResultDTO<GuestBookDTO, GuestBook> pageResultDTO =
 				guestBookService.getList(pageRequestDTO);
-		
-		//페이징 처리 테스트
-		System.out.println("이전 : " + pageResultDTO.isPrev());
-		System.out.println("다음 : " + pageResultDTO.isNext());
-		System.out.println("총 페이지 수 : " + pageResultDTO.getTotalPage());
-		System.out.println("----------------------------");
 		
 		for(GuestBookDTO dto : pageResultDTO.getDtoList()) {
 			System.out.println(dto);
 		}
-		System.out.println("페이징 처리 결과 확인============");
-		pageResultDTO.getPageList().forEach(t -> System.out.println(t));
 	}
 }
