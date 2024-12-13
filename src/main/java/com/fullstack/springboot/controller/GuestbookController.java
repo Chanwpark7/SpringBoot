@@ -32,10 +32,10 @@ public class GuestbookController {
 	}
 	
 	@GetMapping("/list")
-	public String list(PageRequestDTO pageRequestDTO, Model model) {
+	public String list(PageRequestDTO requestDTO, Model model) {
 		
-		log.warn("list 페이지 요청됨 요청정보 ===>" + pageRequestDTO.toString());
-		model.addAttribute("result", guestBookService.getList(pageRequestDTO));
+		log.warn("list 페이지 요청됨 요청정보 ===>" + requestDTO.toString());
+		model.addAttribute("result", guestBookService.getList(requestDTO));
 		
 		return "/guestbook/list";
 	}
